@@ -1,5 +1,7 @@
 package one.digitalinnovation.parking.services;
 
+import one.digitalinnovation.parking.controller.dto.ParkingDTO;
+import one.digitalinnovation.parking.exception.LicenseNotFoundException;
 import one.digitalinnovation.parking.exception.ParkingNotFoundException;
 import one.digitalinnovation.parking.model.Parking;
 import one.digitalinnovation.parking.repository.ParkingRepository;
@@ -32,6 +34,17 @@ public class ParkingService {
     public Parking findById(String id) {
         return parkingRepository.findById(id).orElseThrow( () ->
                 new ParkingNotFoundException(id));
+    }
+
+    public Parking findByLicense(String license){
+        Optional<Parking> parking = parkingRepository.findByLicense(license);
+
+        if (parking.isPresent()) {
+            return parking.get();
+        }
+        else {
+            throw new LicenseNotFoundException(license);
+        }
     }
 
     @Transactional

@@ -53,4 +53,17 @@ class ParkingControllerTest {
                 .body("license", Matchers.equalTo("WRT-5555"));
 
     }
+
+    /*@Test
+    void whenFindByLincenseCheckIsFinding(){
+        var createDTO = new ParkingCreateDTO();
+        createDTO.setColor("Amarelo");
+        createDTO.setLicense("WRT-5555");
+        createDTO.setModel("Astra");
+        createDTO.setState("CE");
+
+        RestAssured.given()
+                .when()
+                .get()
+    }*/
 }

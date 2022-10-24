@@ -38,9 +38,16 @@ public class ParkingController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public ResponseEntity<ParkingDTO> findById(@PathVariable String id){
         Parking parking = parkingService.findById(id);
+        ParkingDTO result = parkingMapper.parkingDTO(parking);
+        return ResponseEntity.ok(result);
+    }*/
+
+    @GetMapping("/{license}")
+    public ResponseEntity<ParkingDTO> findByLicense(@PathVariable("license") String license){
+        Parking parking = parkingService.findByLicense(license);
         ParkingDTO result = parkingMapper.parkingDTO(parking);
         return ResponseEntity.ok(result);
     }
