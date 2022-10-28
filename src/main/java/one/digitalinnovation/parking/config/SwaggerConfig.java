@@ -7,10 +7,14 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @EnableSwagger2
@@ -35,8 +39,35 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("one.digitalinnovation.parking"))
                 .build()
-                .apiInfo(metaData());
+                .apiInfo(metaData())
+                .securityContexts(List.of(actuatorSecurityContext()))
+                .securitySchemes(List.of(basicAuthScheme()));
     }
+
+    private SecurityContext actuatorSecurityContext() {
+        return SecurityContext.builder()
+                .securityReferences(List.of(basicAuthReference()))
+                .build();
+    }
+
+    private SecurityScheme basicAuthScheme() {
+        return new BasicAuth("basicAuth");
+    }
+
+    private SecurityReference basicAuthReference() {
+        return new SecurityReference("basicAuth", new AuthorizationScope[0]);
+    }
+
+    private List<SecurityScheme> basicScheme() {
+        List<SecurityScheme> schemeList = new ArrayList<>();
+        schemeList.add(new BasicAuth("basicAuth"));
+        return schemeList;
+    }
+
+    private ApiKey  apiKey() {
+        return new ApiKey("apiKey", "Authorization", "header");
+    }
+
 
     private ApiInfo metaData() {
         return new ApiInfoBuilder()

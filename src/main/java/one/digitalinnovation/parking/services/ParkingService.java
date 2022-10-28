@@ -38,7 +38,6 @@ public class ParkingService {
 
     public Parking findByLicense(String license){
         Optional<Parking> parking = parkingRepository.findByLicense(license);
-
         if (parking.isPresent()) {
             return parking.get();
         }
