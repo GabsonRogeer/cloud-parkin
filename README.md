@@ -28,4 +28,4 @@ Onde serão controlados a entrada, saída e valor a ser cobrado do cliente.
 
 
 ## Client Url - Curl
-`curl -X GET "https://portela-cloud-parking.herokuapp.com/parking" -H "accept: */*"`
+`curl -X GET "https://portela-cloud-parking.herokuapp.com/parking" -H "accept: */*" -H "authorization: Basic dXNlcjoxMjM0NQ=="`
